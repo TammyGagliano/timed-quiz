@@ -1,7 +1,9 @@
 // Declare variables 
-var timeCount = document.querySelectorAll(".timer");
+var viewHighscores = document.querySelector("view_highscores");
+var timeCount = document.querySelector(".timer");
 var startBtn = document.querySelector(".start_btn");
 var welcomeMsg = document.querySelector(".welcome_msg");
+var quizContainer = document.querySelector(".question_container");
 var quizQuestions = document.querySelector(".quiz_questions");
 var opt1 = document.querySelector(".opt1");
 var opt2 = document.querySelector(".opt2");
@@ -9,9 +11,14 @@ var opt3 = document.querySelector(".opt3");
 var opt4 = document.querySelector(".opt4");
 var correctIncorrect = document.querySelector("correct-incorrect");
 var doneForm = document.querySelector("done_form");
+var finalScore = document.querySelector(".final_score");
+var initials = document.querySelector(".initials");
+var submitHighscore = document.querySelector(".submit_highscore");
+var highscoresList = document.querySelector(".highscores_list");
+var goBack = document.querySelector(".go_back");
+var clearHighscores = document.querySelector(".clear_highscores");
 
 
-var initials = document.getElementById("initials");
 // hide every container except the welcome container
 questionContainer.style.display = "none";
 doneContainer.style.display = "none";
@@ -34,16 +41,16 @@ var beginQuiz = function(event) {
   timeLeft = 120;
   i = 0;
   var timeInterval = setInterval(function() {
-    timer.textContent = "Timer: " + timeLeft;
+    timeCount.textContent = "Timer: " + timeLeft;
     timeLeft--;
   
     if (timeLeft <= 0) {
-      timer.textContent = "Timer: ";
+      timeCount.textContent = "Timer: ";
       clearInterval(timeInterval);
       endGame();
     }
     if (i >= questions.length - 1) {
-      timer.textContent = "Timer: ";
+      timeCount.textContent = "Timer: ";
       clearInterval(timeInterval);
     }
   }, 1000);
@@ -67,4 +74,5 @@ var beginQuestions = function(event) {
     }
   }
 
+  
   

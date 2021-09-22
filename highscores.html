@@ -4,30 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit-no"/>
     <title>Timed Quiz Challenge</title>
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="./main.css" />
 </head>
 <body>
 
         <!-- Result Box -->
-        <div class="container" id="highscoresContainer">
+    <div class="container" id="highscoresContainer">
         <div class="result_box">
-            <div class="completed">
-                <h1>Highscores</h1>
-            </div>
-            <ol>
-                <li></li>
-                <li></li>
-            </ol>
+            <h1 class="title">Highscores</h1>            
+                <ol class="highscores_list" id="highscores-list">
+                </ol>
             <div class="buttons">
-                <button type="button" class="btn btn-primary rounded" id="go_back">Go Back</button>
-                <button type="button" class="btn btn-primary rounded" id="clear">Clear Highscores</button>
+                <button type="button" class="btn btn-primary rounded go_back" id="go-back">Go Back</button>
+                <button type="button" class="btn btn-primary rounded clear_highscores" id="clear">Clear Highscores</button>
             </div>
         </div>
     </div>
 
-
-    
-</div>
+    <script type="text/javascript" src="./script.js"></script>
+    <script type="text/javascript" src="./questions.js"></script>
 
 </body>
 </html>
+
+
+<div class="main-container" id="highscores-container">
+    <h1>Highscores</h1>
+    <ol id="highscores-list">
+
+    </ol>
+    <button type="button" class="btn btn-primary rounded" id="go-back">Go Back</button>
+    <button type="button" class="btn btn-primary rounded" id="clear-highscores">Clear Highscores</button>
+</div>
