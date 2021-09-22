@@ -1,71 +1,66 @@
-// All required elements
-var start_btn = document.querySelector(".start_btn button");
-var info_box = document.querySelector(".info_box");
-var quit_btn = document.querySelector(".buttons quit");
-var restart_btn = document.querySelector(".buttons restart");
-var quiz_box = document.querySelector(".quiz_box");
-
-//If start quiz button is clicked show the information box
-start_btn.onclick = () =>{
-    info_box.classList.add("CSS INFO HERE");
-}
-
-//If exit quiz button is clicked hide the information box
-go_back.onclick = () =>{
-    info_box.classList.remove("CSS INFO HERE");
-}
-
-//If restart quiz button is clicked
-clear_btn.onclick = () =>{
-    info_box.classList.remove("CSS INFO HERE"); // hide the info box
-    quiz_box.classList.add("CSS INFO HERE"); // show the info box
-    showQuestions(0);
-}
-
-var que_count = 0;
-
-// getting questions and options from arrays
-
-function showQuestions(index) {
-    var list_text = document.querySelector('.list_text');
-    var option_list = document.querySelector('.option_list');
+// Declare variables 
+var timeCount = document.querySelectorAll(".timer");
+var startBtn = document.querySelector(".start_btn");
+var info = document.querySelector(".info_box");
+var quizQuestion = document.querySelector(".quiz_question");
+var opt1 = document.querySelector(".opt1");
+var opt2 = document.querySelector(".opt2");
+var opt3 = document.querySelector(".opt3");
+var opt4 = document.querySelector(".opt4");
+var correctIncorrect = document.querySelector("correct-incorrect");
 
 
-    var que_tag = '<span>' + questions[index].question +'</span>';
-    var option_tag = '<div class="option">' + questions[index].options[0] +'</span></span></div>'
-                    + '<div class="option">' + questions[index].options[1] +'</span></span></div>'
-                    + '<div class="option">' + questions[index].options[2] +'</span></span></div>'
-                    + '<div class="option">' + questions[index].options[3] +'</span></span></div>'
-                    + '<div class="option">' + questions[index].options[4] +'</span></span></div>'
-    list_text.innerHTML= que_tag;
-    option_list.innerHTML = option_tag;
-    
-    var option = option_list.querySelectorAll(".option");
-    for (let i = 0; i < option.length; i++) {
-        option[i].setAttribute("onclick, optionSelected(this)");
+var initials = document.getElementById("initials");
+// hide every container except the welcome container
+questionContainer.style.display = "none";
+doneContainer.style.display = "none";
+
+
+
+
+
+// Declare global variables
+var userScore;
+var timeLeft;
+var i;
+
+// Event triggers timer on button click and shows user a display on page
+// set score to 0 and timer to 120 sec; populate first question
+var beginQuiz = function(event) {
+  userScore = 0;
+  timeLeft = 120;
+  i = 0;
+  var timeInterval = setInterval(function() {
+    time.textContent = "Timer: " + timeLeft;
+    timeLeft--;
+  
+    if (timeLeft <= 0) {
+      timer.textContent = "Timer: ";
+      clearInterval(timeInterval);
+      endGame();
     }
-}
+    if (i >= questions.length - 1) {
+      timer.textContent = "Timer: ";
+      clearInterval(timeInterval);
+    }
+  }, 1000);
+  beginQuestions();
+};
 
-function optionSelected(answer) {
-    var userAns = answer.textContent;
-    var correctAns = questions[index].answer;
-    console.log("userAns")
-
-}
-
-
-
-
-
-
-
-
-// adding a paragraph sentence when you click the button
-
- // var buttons = document.querySelectorAll('button');
-
-// for(let i = 0; i < buttons.length ; i++) {
-//     buttons[i].addEventListener('click', createParagraph);
-// }
-
+// hide unnecessary containers; populate questions according to "i" number
+var beginQuestions = function() {
+    evt.preventDefault();
+  
+    quizQuestion.textContent = questions[i]["question"];
+  
+    opt1.textContent = myQuestions[i]["option"][0];
+    opt2.textContent = myQuestions[i]["option"][1];
+    opt3.textContent = myQuestions[i]["option"][2];
+    opt4.textContent = myQuestions[i]["option"][3];
+  
+    if (i >= myQuestions.length - 1) {
+        
+      endGame();
+    }
+  }
 

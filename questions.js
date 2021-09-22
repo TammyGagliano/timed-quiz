@@ -1,8 +1,9 @@
 // Creating an array with questions, options and answers
-var questions = [ { 
+var questions = []
+{ 
     question: "Commonly used data types DO NOT include:",
-    answer: "alerts",
-    options [
+    answer = "alerts",
+    options = [
         "strings",
         "boolean",
         "alerts",
@@ -10,9 +11,9 @@ var questions = [ {
     ]
 }
 { 
-    question: "The condition in an if / else statement is enclosed withing __________.<",
-    answer: "curly brackets",
-    options [
+    question: "The condition in an if / else statement is enclosed withing __________.",
+    answer = "curly brackets",
+    options = [
         "quotes",
         "curly brackets",
         "parentheses",
@@ -21,8 +22,8 @@ var questions = [ {
 }
 { 
     question: "Arrays in Javascript can be used to store __________.",
-    answer: "all of the above",
-    options [
+    answer = "all of the above",
+    options = [
         "numbers and strings",
         "other arrays",
         "booleans",
@@ -31,8 +32,8 @@ var questions = [ {
 }
 { 
     question: "String values must be enclosed within __________ when being assigned to variables.",
-    answer: "quotes",
-    options [
+    answer = "quotes",
+    options = [
         "commas",
         "curly brackets",
         "quotes",
@@ -40,13 +41,12 @@ var questions = [ {
     ]
 }
 {
-    question: "A very useful tool used during development and debugging for printing content to the debugger is: ",
-    answer: "console log",
-    options [
+    question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+    answer = "console log",
+    options = [
         "Javascript",
         "terminal / bash",
         "for loops",
         "console log"
     ]
 }
-]

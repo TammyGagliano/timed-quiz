@@ -13,18 +13,10 @@ body {
 
 /* Start Quiz button styling */
 
-.start_btn,
-.info_box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .start_btn button {
     font-size: 25px;
     font-weight: 500;
-    color: black;
+    color: white;
     padding: 15px 30px;
     outline: none;
     border-radius: 5px;
@@ -37,6 +29,10 @@ body {
 .info_box {
     width: 700px;
     text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .info_title {
@@ -96,3 +92,4 @@ body {
 .buttons button.go_back:hover{
     background: grey;
 }
+
