@@ -9,8 +9,8 @@ var opt1 = document.querySelector(".opt1");
 var opt2 = document.querySelector(".opt2");
 var opt3 = document.querySelector(".opt3");
 var opt4 = document.querySelector(".opt4");
-var correctIncorrect = document.querySelector("correct-incorrect");
-var doneForm = document.querySelector("done_form");
+var correctIncorrect = document.querySelector(".correct-incorrect");
+var doneContainers = document.querySelector(".done_container");
 var finalScore = document.querySelector(".final_score");
 var initials = document.querySelector(".initials");
 var submitHighscore = document.querySelector(".submit_highscore");
@@ -22,11 +22,8 @@ var clearHighscores = document.querySelector(".clear_highscores");
 // hide every container except the welcome container
 questionContainer.style.display = "none";
 doneContainer.style.display = "none";
-
-
-startBtn.addEventListener('click', beginQuiz);
-
-
+doneContainer.style.display = "none";
+welcomeContainer.style.display = "block";
 
 // Declare global variables
 var userScore;
@@ -36,7 +33,9 @@ var i;
 // Event triggers timer on button click and shows user a display on page
 // set score to 0 and timer to 120 sec; populate first question
 var beginQuiz = function(event) {
-  console.log('button click');
+  
+  // console.log('Will this show up?');
+  
   userScore = 0;
   timeLeft = 120;
   i = 0;
@@ -58,21 +57,133 @@ var beginQuiz = function(event) {
 };
 
 // hide unnecessary containers; populate questions according to "i" number
-var beginQuestions = function(event) {
+var beginQuestions = function() {
     event.preventDefault();
+    //questionContainer.style.display = "block"
+
+    quizQuestions.textContent = questions[i]["question"];
   
-    quizQuestion.textContent = questions[i]["question"];
+    opt1.textContent = questions[i]["options"][0];
+    opt2.textContent = questions[i]["options"][1];
+    opt3.textContent = questions[i]["options"][2];
+    opt4.textContent = questions[i]["options"][3];
   
-    opt1.textContent = myQuestions[i]["option"][0];
-    opt2.textContent = myQuestions[i]["option"][1];
-    opt3.textContent = myQuestions[i]["option"][2];
-    opt4.textContent = myQuestions[i]["option"][3];
-  
-    if (i >= myQuestions.length - 1) {
+    if (i >= questions.length - 1) {
         
       endGame();
     }
   }
 
+// check answer and display whether correct or incorrect
+var checkAnswer = function(event) {
+  var userGuess = event.target.id;
+  if (userGuess === questions[i]["answer"]) {
+    userScore++;
+    userGuess.style.backgroundColor = "green";
+    correctIncorrect.style.display = "block";
+    correctIncorrect.textContent = "Correct! You've earned a point!";
+  } else {
+    timeLeft -= 10;
+    correctIncorrect.style.display = "block";
+    correctIncorrect.textContent = "Incorrect! You've lost 10 seconds!";
+  }
+    i++;
+    beginQuestions();
+}
   
-  
+// called either when timer or questions run out
+// hides unnecessary containers, displays user's score
+var endGame = function() {
+  questionContainer.style.display = "none";
+  highscoresContainer.style.display = "none";
+  welcomeContainer.style.display = "none";
+  doneContainer.style.display = "block";
+  finalScore.textContent = "Your final score is: " + userScore;
+}
+// highscore generation
+// set empty array
+var userHighscores = [];
+
+// hide unnecessary containers
+// set highscore html element to empty string, populate that string with retrieval and appending of highscore data from local storage
+var addHighscore = function(event) {
+  questionContainer.style.display = "none";
+  doneContainer.style.display = "none";
+  welcomeContainer.style.display = "none";
+  highscoresContainer.style.display = "block";
+
+  highscoresList.innerHTML = "";
+  for (var j = 0; j < userHighscores.length; j++) {
+    var userHighscore = userHighscores[j];
+
+    var li = document.createElement("li");
+    li.textContent = userHighscore;
+    li.setAttribute("data-index", j);
+    highscoresList.appendChild(li);
+  }
+}
+
+// retrieve highscore array data from localstorage
+var getHighscores = function() {
+  var loggedHighscores = JSON.parse(localStorage.getItem("userHighscores"));
+  if (userHighscores !== null) {
+    userHighscores = loggedHighscores;
+  }
+  addHighscore();
+}
+
+// insert highscore array data into local storage
+var storeHighscore = function() {
+  localStorage.setItem("userHighscores", JSON.stringify(userHighscores));
+}
+
+// event listener to push highscore data into highscore array
+submitHighscore.addEventListener("click", function(event) {
+  event.preventDefault();
+  var userInitialsScore = initials.value + " - " + userScore;
+  if (userInitialsScore === "") {
+    return;
+  }
+
+  userHighscores.push(userInitialsScore);
+  initials.value = "";
+  storeHighscore();
+  getHighscores();
+});
+
+// called by "clear highscores" button, clears local storage
+var clearScores = function(event) {
+  localStorage.clear();
+  userHighscores = [];
+  console.log(userHighscores)
+  highscoresList.textContent = "";
+  console.log(localStorage);
+  checkHighscore();
+}
+
+// called by "go back" button, hides all but welcome container
+var startOver = function(event) {
+  questionContainer.style.display = "none";
+  doneContainer.style.display = "none";
+  highscoresContainer.style.display = "none";
+  correctIncorrect.style.display = "none";
+  welcomeContainer.style.display = "block";
+}
+
+// pseudo-link to display highscores
+var checkHighscore = function(event) {
+  questionContainer.style.display = "none";
+  doneContainer.style.display = "none";
+  welcomeContainer.style.display = "none";
+  highscoresContainer.style.display = "block";
+}
+
+// event listeners
+startBtn.addEventListener("click", beginQuiz);
+opt1.addEventListener("click", checkAnswer);
+opt2.addEventListener("click", checkAnswer);
+opt3.addEventListener("click", checkAnswer);
+opt4.addEventListener("click", checkAnswer);
+goBack.addEventListener("click", startOver);
+viewHighscores.addEventListener("click", checkHighscore);
+clearHighscores.addEventListener("click", clearScores);
