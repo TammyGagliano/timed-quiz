@@ -1,5 +1,5 @@
 // Creating an array with questions, options and answers
-var questions = []
+var questions = [
 { 
     question: "Commonly used data types DO NOT include:",
     answer = "alerts",
@@ -50,3 +50,4 @@ var questions = []
         "console log"
     ]
 }
+];
