@@ -116,3 +116,18 @@ body {
 .highscores {
     line-height: 10px;
 }
+
+.question_container, .options, .done_form {
+    padding: 20px;
+    margin: auto; 
+    width: 50%;
+    text-align: center;
+}
+
+.options {
+    margin: 5px;
+}
+
+.done_form {
+    width: 25%;
+}
