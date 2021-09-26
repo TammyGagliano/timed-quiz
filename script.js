@@ -1,5 +1,4 @@
 // Declare variables 
-var viewHighscores = document.querySelector("view_highscores");
 var timeCount = document.querySelector(".timer");
 var startBtn = document.querySelector(".start_btn");
 var welcomeMsg = document.querySelector(".welcome_msg");
@@ -9,15 +8,11 @@ var opt1 = document.querySelector("#opt1");
 var opt2 = document.querySelector("#opt2");
 var opt3 = document.querySelector("#opt3");
 var opt4 = document.querySelector("#opt4");
-var correctIncorrect = document.querySelector(".correct-incorrect");
+var correctIncorrect = document.querySelector(".correct_incorrect");
 var doneContainers = document.querySelector(".done_container");
 var finalScore = document.querySelector(".final_score");
-var initials = document.querySelector(".initials");
+var initials = document.querySelector("#initial");
 var submitHighscore = document.querySelector(".submit_highscore");
-var highscoresList = document.querySelector(".highscores_list");
-var goBack = document.querySelector(".go_back");
-var clearHighscores = document.querySelector(".clear_highscores");
-var highscoresContainer = document.querySelector("#highscoresContainer");
 
 // Creating an array with questions, options and answers
 var questions = [
@@ -27,9 +22,9 @@ var questions = [
       answer: "alerts"
   },
   { 
-      question: "The condition in an if / else statement is enclosed withing __________.",
+      question: "The condition in an if / else statement is enclosed within __________.",
       options: [ "quotes", "curly brackets", "parentheses", "square brackets" ],
-      answer: "curly brackets"
+      answer: "parentheses"
   },
   { 
       question: "Arrays in Javascript can be used to store __________.",
@@ -39,11 +34,11 @@ var questions = [
   { 
       question: "String values must be enclosed within __________ when being assigned to variables.",
       options: [ "commas", "curly brackets", "quotes", "parentheses" ],
-      answer "quotes"
+      answer: "quotes"
   },
   {
       question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-      options: [ "Javascript", "terminal / bash", "for loops", "console log" ]
+      options: [ "Javascript", "terminal / bash", "for loops", "console log" ],
       answer: "console log"
   }
 ];
@@ -57,7 +52,7 @@ welcomeContainer.style.display = "block";
 // Declare global variables
 var userScore;
 var timeLeft;
-var i;
+var i = 0;
 
 // Event triggers timer on button click and shows user a display on page
 // set score to 0 and timer to 120 sec; populate first question
@@ -77,11 +72,7 @@ var beginQuiz = function() {
       clearInterval(timeInterval);
       endGame();
     }
-    // might remove later
-   // if (i >= questions.length - 1) {
-     // timeCount.textContent = "Timer: ";
-      //clearInterval(timeInterval);
-   // }
+
 }, 1000);
   beginQuestions();
 };
@@ -93,29 +84,21 @@ var beginQuestions = function() {
     doneContainer.style.display = "none";
     highscoresContainer.style.display = "none";
     questionContainer.style.display = "block";
-    
-    // I need to call my array of objects first
-    console.log(questions);
-
-    // use a forloop to loop the questions
+  
+    // run through questions
     quizQuestions.textContent = questions[i]["question"];
     opt1.textContent = questions[i]["options"][0];
     opt2.textContent = questions[i]["options"][1];
     opt3.textContent = questions[i]["options"][2];
     opt4.textContent = questions[i]["options"][3];
-  
-    if (i >= questions.length - 1) {
-        
-      endGame();
-    }
+      
   }
 
 // check answer and display whether correct or incorrect
 var checkAnswer = function(event) {
-  var userGuess = event.target.id;
+  var userGuess = event.target.textContent;
   if (userGuess === questions[i]["answer"]) {
     userScore++;
-    userGuess.style.backgroundColor = "green";
     correctIncorrect.style.display = "block";
     correctIncorrect.textContent = "Correct! You've earned a point!";
   } else {
@@ -124,7 +107,13 @@ var checkAnswer = function(event) {
     correctIncorrect.textContent = "Incorrect! You've lost 10 seconds!";
   }
     i++;
-    beginQuestions();
+
+    if (i > questions.length - 1) {
+        
+      endGame();
+    } else {
+    beginQuestions(); 
+  }
 }
   
 // called either when timer or questions run out
@@ -140,62 +129,30 @@ var endGame = function() {
 // set empty array
 var userHighscores = [];
 
-// hide unnecessary containers
-// set highscore html element to empty string, populate that string with retrieval and appending of highscore data from local storage
-var addHighscore = function(event) {
-  questionContainer.style.display = "none";
-  doneContainer.style.display = "none";
-  welcomeContainer.style.display = "none";
-  highscoresContainer.style.display = "block";
-
-  highscoresList.innerHTML = "";
-  for (var j = 0; j < userHighscores.length; j++) {
-    var userHighscore = userHighscores[j];
-
-    var li = document.createElement("li");
-    li.textContent = userHighscore;
-    li.setAttribute("data-index", j);
-    highscoresList.appendChild(li);
-  }
-}
-
-// retrieve highscore array data from localstorage
-var getHighscores = function() {
-  var loggedHighscores = JSON.parse(localStorage.getItem("userHighscores"));
-  if (userHighscores !== null) {
-    userHighscores = loggedHighscores;
-  }
-  addHighscore();
-}
-
 // insert highscore array data into local storage
 var storeHighscore = function() {
-  localStorage.setItem("userHighscores", JSON.stringify(userHighscores));
+  console.log(initials.value);
+  var scoreFromStorage = localStorage.getItem('userHighscores');
+  if(scoreFromStorage) {
+    var newScores = JSON.parse(scoreFromStorage);
+    newScores.push(initials.value + ' - ' + userScore );
+    localStorage.setItem("userHighscores", JSON.stringify(newScores));
+  } else {
+    localStorage.setItem("userHighscores", JSON.stringify([initials.value + ' - ' + userScore]));
+  };
+  initials.value = "";
 }
 
 // event listener to push highscore data into highscore array
 submitHighscore.addEventListener("click", function(event) {
   event.preventDefault();
-  var userInitialsScore = initials.value + " - " + userScore;
-  if (userInitialsScore === "") {
+  
+  if (initials.value === "") {
+    alert('Please enter your initials.');
     return;
   }
-
-  userHighscores.push(userInitialsScore);
-  initials.value = "";
   storeHighscore();
-  getHighscores();
-});
-
-// called by "clear highscores" button, clears local storage
-var clearScores = function(event) {
-  localStorage.clear();
-  userHighscores = [];
-  console.log(userHighscores)
-  highscoresList.textContent = "";
-  console.log(localStorage);
-  checkHighscore();
-}
+ });
 
 // called by "go back" button, hides all but welcome container
 var startOver = function(event) {
@@ -206,20 +163,9 @@ var startOver = function(event) {
   welcomeContainer.style.display = "block";
 }
 
-// pseudo-link to display highscores
-var checkHighscore = function(event) {
-  questionContainer.style.display = "none";
-  doneContainer.style.display = "none";
-  welcomeContainer.style.display = "none";
-  highscoresContainer.style.display = "block";
-}
-
 // event listeners
 startBtn.addEventListener("click", beginQuiz);
 opt1.addEventListener("click", checkAnswer);
 opt2.addEventListener("click", checkAnswer);
 opt3.addEventListener("click", checkAnswer);
 opt4.addEventListener("click", checkAnswer);
-goBack.addEventListener("click", startOver);
-viewHighscores.addEventListener("click", checkHighscore);
-clearHighscores.addEventListener("click", clearScores);
