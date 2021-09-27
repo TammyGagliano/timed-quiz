@@ -46,6 +46,6 @@ var addHighscore = function(event) {
   }
 
 
-// goBack.addEventListener("click", startOver);
+//goBack.addEventListener("click", startOver);
 viewHighscores.addEventListener("click", checkHighscore);
 clearHighscores.addEventListener("click", clearScores);
