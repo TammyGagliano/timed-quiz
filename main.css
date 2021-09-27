@@ -100,22 +100,17 @@ body {
     background: black;
 }
 
-.buttons button.clear:hover{
-    background: grey;
-}
-
-.buttons button.go_back {
+.buttons button .go_back {
     color: white;
     background: black;
-}
-
-.buttons button.go_back:hover{
-    background: grey;
+    text-decoration: none;
 }
 
 .highscores {
     line-height: 10px;
 }
+
+/* Styling containers to center align content */
 
 .question_container, .options, .done_form {
     padding: 20px;
@@ -130,4 +125,8 @@ body {
 
 .done_form {
     width: 25%;
+}
+
+.view_highscores{
+    text-decoration: none;
 }
