@@ -12,13 +12,19 @@ var checkHighscore = function(event) {
   
   // called by "clear highscores" button, clears local storage
 var clearScores = function(event) {
-    localStorage.clear();
- //   userHighscores = [];
- //   console.log(userHighscores)
-    highscoresList.textContent = "";
-    console.log(localStorage);
-    checkHighscore();
+    window.localStorage.removeItem("userHighscores");
+    window.location.reload();
   }
+
+      //{
+//      userHighscores = [li];
+//      console.log(userHighscores)
+  //   highscoresList.textContent = "";
+  //   console.log(localStorage);
+  //   checkHighscore();
+  // }
+
+  document.getElementById("clear").onclick = clearScores;
 
 // hide unnecessary containers
 // set highscore html element to empty string, populate that string with retrieval and appending of highscore data from local storage
@@ -45,7 +51,9 @@ var addHighscore = function(event) {
     addHighscore();
   }
 
+  
 
 //goBack.addEventListener("click", startOver);
-viewHighscores.addEventListener("click", checkHighscore);
+//viewHighscores.addEventListener("click", checkHighscore);
 clearHighscores.addEventListener("click", clearScores);
+
