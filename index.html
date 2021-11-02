@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,70 +62,4 @@
     <script type="text/javascript" src="./script.js"></script>
     
 </body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Timed Quiz Challenge</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./main.css" />
-</head>
-<body>
-
-    <!-- High Scores / Timer Navigation area -->
-    <div class="container" id="timerContainer">
-        <nav id="navbar-brand">
-            <a href="highscores.html" class="view_highscores" id="highscoresContainer">View High Scores</a>
-            <span id="quizTimer" class="timer">Timer: 0</span>
-        </nav>
-    </div>
-        
-    <!-- Information box at the beginning of the Quiz -->
-    <div class="container" id="welcomeContainer">
-        <div class="welcome_msg">
-        <h1 class="welcome_title">Coding Quiz Challenge</h1>
-            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 10 seconds.</p>
-            <div class="start">
-                <button type="button" class="btn btn-primary rounded start_btn" id="start_quiz">Start Quiz</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Questions for the Quiz -->
-
-        <div class="question_container" id="questionContainer">
-            <h2 class="quiz_questions"></h2>
-        <section>    
-            <div class="answer_list">
-                <option id="opt1" class="btn btn-dark options"></option>
-                <option id="opt2" class="btn btn-dark options"></option>
-                <option id="opt3" class="btn btn-dark options"></option>
-                <option id="opt4" class="btn btn-dark options"></option>
-                <hr id="lineBreak" style="display: none">
-                <div class="correct_incorrect" id="right_wrong" id="answerCheck">
-                </div>
-            </div>    
-        </section>
-        </div>
-
-        <!-- All Done! Add your initials and see your high scores -->  
-    
-        <div class="container" class="done_container" id="doneContainer">
-        <div class="done_form">
-            <h2>All done!</h2>
-            <p class="final_score" id="final-score"></p>
-            <div class="form-inline">
-                <label for="initials">Enter initials:</label>
-                <input type="text" class="form-control form-control-sm initials" id="initial" aria-describedby="enter initials">          
-                <button onclick="location.href='./highscores.html'" type="button" class="btn btn-primary btn-sm rounded submit_highscore" id="submit-highscore">Submit</button>
-            </div>
-        </div>
-        </div>
-
-    <script type="text/javascript" src="./script.js"></script>
-    
-</body>
->>>>>>> 88228cb750cb5b12e7a5c45f943f35c4eb479e7c
 </html>
