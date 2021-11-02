@@ -133,3 +133,12 @@ body {
     font-weight: 600;
     font-size: 20px;
 }
+
+ul#highscores-list {
+    text-decoration: none;
+    list-style: none;
+}
+
+#hsbtn {
+    margin: 20px;
+}
